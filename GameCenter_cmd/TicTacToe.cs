@@ -11,11 +11,12 @@ namespace GameCenter_cmd
         }
         static void TicHelp()
         {
-            //TODO: Update text on commands
-            Console.WriteLine("Avalible commands:");
-            Console.WriteLine("rules -  NYI");
-            Console.WriteLine("stop - NYI");
-            Console.WriteLine("start - Starts game");
+            Console.Clear();
+            Console.WriteLine("Avalible commands:\n");
+            Console.WriteLine("rules    |- Lists all the rules");
+            Console.WriteLine("exit     |- Exits the game and goes back to the main menu");
+            Console.WriteLine("start    |- Starts game");
+            Console.WriteLine("help     |- Lists all the commands avalible");
         }
         static void TicRules()
         {
@@ -90,7 +91,6 @@ namespace GameCenter_cmd
         public static void CheckWin(ref int oWins, ref int xWins, ref int ties, string[] playFieldArr, ref bool gameLoop)
         {
             //TODO: Refactor
-            int m = 0;
             // horizontally
             if (playFieldArr[0] == playFieldArr[1] && playFieldArr[0] == playFieldArr[2] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
                 gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 0);
@@ -149,23 +149,21 @@ namespace GameCenter_cmd
         }
         public static void PlayFieldPlayerUpdate(string player,string[] playFieldArr)
         {
-            //FIXME: playerPos can crash if empty || a string
             while (true)
             {
                 Console.Write($"Player {player}: ");
-                int playerPos = int.Parse(Console.ReadLine()) - 1;
-                if ((playerPos <= 8 && playerPos >= 0) && (playFieldArr[playerPos] == " "))
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out int playerPos) && playerPos >= 1 && playerPos <= 9)
                 {
-                    playFieldArr[playerPos] = player;
-                    break;
+                    playerPos--;
+                    if (playFieldArr[playerPos] == " ")
+                    {
+                        playFieldArr[playerPos] = player;
+                        break;
+                    }
+                    else Console.WriteLine("You can't place a game tile on a square that is not empty.");
                 }
-                else if ((playerPos < 0 || playerPos > 8) || (playFieldArr[playerPos] != " "))
-                {
-                    if (playerPos < 0 || playerPos > 8) Console.WriteLine("Input must be a number between 1-9");
-                    else if (playFieldArr[playerPos] != " ") Console.WriteLine("You can't place a game tile on a square that is not empty.");
-                }
-                else Console.WriteLine("ERROR");
-
+                else Console.WriteLine("Input must be a number between 1-9");
             }
             PrintPlayerBoard(playFieldArr);
         }
