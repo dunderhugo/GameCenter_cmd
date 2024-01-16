@@ -1,20 +1,18 @@
-﻿namespace GameCenter_cmd
+﻿using System.Numerics;
+
+namespace GameCenter_cmd
 {
     internal class TicTacToe
     {
         public static void PrintPlayField()
         {
-            Console.WriteLine("The playfield is a number between 1-9, type the number on the spot you want to place your game tile \n");
-            Console.WriteLine($"|1|2|3|");
-            Console.WriteLine($"|-+-+-|");
-            Console.WriteLine($"|4|5|6|");
-            Console.WriteLine($"|-+-+-|");
-            Console.WriteLine($"|7|8|9|\n");
+            string[] arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+            PrintPlayerBoard(arr);
         }
         static void TicHelp()
         {
             //TODO: Update text on commands
-            Console.WriteLine("Avalible comands:");
+            Console.WriteLine("Avalible commands:");
             Console.WriteLine("rules -  NYI");
             Console.WriteLine("stop - NYI");
             Console.WriteLine("start - Starts game");
@@ -27,22 +25,24 @@
         }
         static public int oWins = 0;
         static public int xWins = 0;
-        static public int ties = 0;   
+        static public int ties = 0;
         public static void StartTicTacToe()
         {
-            string comand;
+            Console.Clear();
+            string command;
             Console.WriteLine("Welcome to Tic-Tac-Toe!");
             Console.WriteLine("Type 'start' to start the game, or 'rules' to list the rules, Good luck! ");
             do
             {
                 Console.Write("> ");
-                comand = Console.ReadLine();
-                switch (comand)
+                command = Console.ReadLine();
+                switch (command)
                 {
                     case "stop":
                         //FIXME: Exit game does not work
                         break;
                     case "start":
+                        Console.Clear();
                         TicStartGame(oWins, xWins, ties);
                         break;
                     case "help":
@@ -52,12 +52,12 @@
                         TicRules();
                         break;
                     default:
-                        Console.WriteLine($"'{comand}' is not a valid comand, type 'help' to get comands or 'stop' to exit game!");
+                        Console.WriteLine($"'{command}' is not a valid comand, type 'help' to get comands or 'stop' to exit game!");
                         break;
                 }
 
             }
-            while (comand != "stop");
+            while (command != "stop");
 
         }
         public static void TicStartGame(int oWins, int xWins, int ties)
@@ -78,15 +78,13 @@
                     PlayFieldPlayerUpdate("O", playFieldArr);
                     i--;
                 }
-                //TODO: Check if the game is over, tie
                 CheckWin(ref oWins, ref xWins,ref ties,playFieldArr, ref gameLoop);
             }
             while (gameLoop);
             TicTacToe.oWins = oWins;
             TicTacToe.xWins = xWins;
             TicTacToe.ties = ties;
-            PrintWinLoss(oWins, xWins, ties);
-
+            Console.WriteLine("Type 'start' to play again, ");
         }
         public static void CheckWin(ref int oWins, ref int xWins, ref int ties, string[] playFieldArr, ref bool gameLoop)
         {
@@ -108,7 +106,7 @@
                     gameLoop = false;
                 }
             }
-            if (playFieldArr[3] == playFieldArr[4] && playFieldArr[3] == playFieldArr[5] && (playFieldArr[3] == "O" || playFieldArr[3] == "X"))
+            else if (playFieldArr[3] == playFieldArr[4] && playFieldArr[3] == playFieldArr[5] && (playFieldArr[3] == "O" || playFieldArr[3] == "X"))
             {
                 if (playFieldArr[3] == "O")
                 {
@@ -123,7 +121,7 @@
                     gameLoop = false;
                 }
             }
-            if (playFieldArr[6] == playFieldArr[7] && playFieldArr[6] == playFieldArr[8] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
+            else if (playFieldArr[6] == playFieldArr[7] && playFieldArr[6] == playFieldArr[8] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
             {
                 if (playFieldArr[6] == "O")
                 {
@@ -133,13 +131,13 @@
                 }
                 else
                 {
-                    Console.WriteLine("X Wins!");
+                    Console.WriteLine("X Wins!"); 
                     xWins++;
                     gameLoop = false;
                 }
             }
             //VERTICAL
-            if (playFieldArr[0] == playFieldArr[3] && playFieldArr[0] == playFieldArr[6] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
+            else if (playFieldArr[0] == playFieldArr[3] && playFieldArr[0] == playFieldArr[6] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
             {
                 if (playFieldArr[0] == "O")
                 {
@@ -154,7 +152,7 @@
                     gameLoop = false;
                 }
             }
-            if (playFieldArr[1] == playFieldArr[4] && playFieldArr[1] == playFieldArr[7] && (playFieldArr[1] == "O" || playFieldArr[1] == "X"))
+            else if (playFieldArr[1] == playFieldArr[4] && playFieldArr[1] == playFieldArr[7] && (playFieldArr[1] == "O" || playFieldArr[1] == "X"))
             {
                 if (playFieldArr[1] == "O")
                 {
@@ -169,7 +167,7 @@
                     gameLoop = false;
                 }
             }
-            if (playFieldArr[2] == playFieldArr[5] && playFieldArr[2] == playFieldArr[8] && (playFieldArr[2] == "O" || playFieldArr[2] == "X"))
+            else if (playFieldArr[2] == playFieldArr[5] && playFieldArr[2] == playFieldArr[8] && (playFieldArr[2] == "O" || playFieldArr[2] == "X"))
             {
                 if (playFieldArr[2] == "O")
                 {
@@ -185,7 +183,7 @@
                 }
             }
             // DIAGONAL
-            if (playFieldArr[0] == playFieldArr[4] && playFieldArr[0] == playFieldArr[8] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
+            else if (playFieldArr[0] == playFieldArr[4] && playFieldArr[0] == playFieldArr[8] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
             {
                 if (playFieldArr[0] == "O")
                 {
@@ -200,7 +198,7 @@
                     gameLoop = false;
                 }
             }
-            if (playFieldArr[6] == playFieldArr[4] && playFieldArr[6] == playFieldArr[2] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
+            else if (playFieldArr[6] == playFieldArr[4] && playFieldArr[6] == playFieldArr[2] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
             {
                 if (playFieldArr[6] == "O")
                 {
@@ -215,31 +213,21 @@
                     gameLoop = false;
                 }
             }
-            for (int i = 0; i < 9; i++)
+            else if (playFieldArr[0] != " " && playFieldArr[1] != " " && playFieldArr[2] != " " && playFieldArr[3] != " " && playFieldArr[4] != " " && playFieldArr[5] != " " && playFieldArr[6] != " " && playFieldArr[7] != " " && playFieldArr[8] != " ")
             {
-                if (playFieldArr[i] == " ")
-                {
-                    break;
-                }
-                else
-                {
-                    m++;
-                }
-                if (m == 9 && gameLoop)
-                {
-                    Console.WriteLine("it's a tie...");
-                    ties++;
-                    gameLoop = false;
-                }
+                Console.WriteLine("it's a tie...");
+                ties++;
+                gameLoop = false;
             }
         }
         public static void PrintWinLoss(int oWins, int xWins, int ties)
         {
             //TODO: Make the print look better, use padding?
-            Console.WriteLine(" ________________________________");
-            Console.WriteLine("|Wins O:     Ties:        Wins X:|");
-            Console.WriteLine($"|  {oWins}           {ties}             {xWins}   |");
-            Console.WriteLine("|________________________________|");
+            Console.WriteLine(" __________________________________");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| Wins O:     Ties:        Wins X: |");
+            Console.WriteLine($"|   {oWins}           {ties}             {xWins}    |");
+            Console.WriteLine("|__________________________________|");
         }
         public static void PlayFieldPlayerUpdate(string player,string[] playFieldArr)
         {
@@ -261,11 +249,24 @@
                 else Console.WriteLine("ERROR");
 
             }
-            Console.WriteLine($"|{playFieldArr[0]}|{playFieldArr[1]}|{playFieldArr[2]}|");
-            Console.WriteLine($"|-+-+-|");
-            Console.WriteLine($"|{playFieldArr[3]}|{playFieldArr[4]}|{playFieldArr[5]}|");
-            Console.WriteLine($"|-+-+-|");
-            Console.WriteLine($"|{playFieldArr[6]}|{playFieldArr[7]}|{playFieldArr[8]}|");
+            PrintPlayerBoard(playFieldArr);
+        }
+
+        public static void PrintPlayerBoard(string[] playFieldArr)
+        {
+            Console.Clear();
+            PrintWinLoss(oWins, xWins, ties);
+            Console.WriteLine("The playfield is a number between 1-9." +
+                "\nType the number on the spot you want to place your game tile \n");
+            Console.WriteLine($"     |     |      ");
+            Console.WriteLine($"  {playFieldArr[0]}  |  {playFieldArr[1]}  |  {playFieldArr[2]}   ");
+            Console.WriteLine($"_____|_____|_____ ");
+            Console.WriteLine($"     |     |      ");
+            Console.WriteLine($"  {playFieldArr[3]}  |  {playFieldArr[4]}  |  {playFieldArr[5]}   ");
+            Console.WriteLine($"_____|_____|_____ ");
+            Console.WriteLine($"     |     |      ");
+            Console.WriteLine($"  {playFieldArr[6]}  |  {playFieldArr[7]}  |  {playFieldArr[8]}   ");
+            Console.WriteLine($"     |     |      ");
         }
     }
 }
