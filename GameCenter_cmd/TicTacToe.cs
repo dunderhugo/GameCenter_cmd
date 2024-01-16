@@ -11,6 +11,7 @@
         }
         static void TicHelp()
         {
+            //TODO: Update text on commands
             Console.WriteLine("Avalible comands:");
             Console.WriteLine("rules -  NYI");
             Console.WriteLine("stop - NYI");
@@ -18,6 +19,7 @@
         }
         static void TicRules()
         {
+            //TODO: Update rules of game
             Console.WriteLine("RULES:");
             Console.WriteLine("NYI");
         }
@@ -33,6 +35,7 @@
                 switch (comand)
                 {
                     case "stop":
+                        //FIXME: Exit game does not work
                         break;
                     case "start":
                         TicStartGame();
@@ -50,10 +53,13 @@
 
             }
             while (comand != "stop");
+            
         }
 
         public static void TicStartGame()
         {
+            //TODO: Game board
+            
             int i = 1;
             int oWins = 0;
             int xWins = 0;
@@ -62,6 +68,7 @@
             PrintWinLoss(5, 3, 11);
             do
             {
+                //TODO: update gameboard
                 if (i % 2 == 0)
                 {
                     Console.Write("Player X: ");
@@ -74,6 +81,7 @@
                     Console.ReadLine();
                     i--;
                 }
+            //TODO: Check if the game is over, won/tie
             }
             while (true);
         }

@@ -13,9 +13,9 @@
         {
             Console.WriteLine("These are all the games that is avalible:");
             Console.WriteLine("Tic-Tac-Toe  - In Progress");   //NYI
-            Console.WriteLine("Hangman      - NYI");       //NYI
-            Console.WriteLine("Yatzee       - NYI");        //NYI
-            Console.WriteLine("Maze game    - NYI");     //NYI
+            Console.WriteLine("Hangman      - NYI");          //NYI
+            Console.WriteLine("Yatzee       - NYI");         //NYI
+            Console.WriteLine("Maze game    - NYI");        //NYI
             //TODO: When done, more games to implement
         }
         static void Main(string[] args)
