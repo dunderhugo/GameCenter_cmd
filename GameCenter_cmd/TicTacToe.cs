@@ -40,6 +40,7 @@ namespace GameCenter_cmd
                 {
                     case "stop":
                         //FIXME: Exit game does not work
+                        //FIXME: Wont do it for now until TicTacToe is finnished, but its the loop in program.cs that is the issue
                         break;
                     case "start":
                         Console.Clear();
@@ -92,127 +93,23 @@ namespace GameCenter_cmd
             int m = 0;
             // horizontally
             if (playFieldArr[0] == playFieldArr[1] && playFieldArr[0] == playFieldArr[2] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
-            {
-                if (playFieldArr[0] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!");
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
-            else if (playFieldArr[3] == playFieldArr[4] && playFieldArr[3] == playFieldArr[5] && (playFieldArr[3] == "O" || playFieldArr[3] == "X"))
-            {
-                if (playFieldArr[3] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!");
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 0);
+            else if (playFieldArr[3] == playFieldArr[4] && playFieldArr[3] == playFieldArr[5] && (playFieldArr[3] == "O" || playFieldArr[3] == "X")) 
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 3);
             else if (playFieldArr[6] == playFieldArr[7] && playFieldArr[6] == playFieldArr[8] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
-            {
-                if (playFieldArr[6] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!"); 
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 6);
             //VERTICAL
             else if (playFieldArr[0] == playFieldArr[3] && playFieldArr[0] == playFieldArr[6] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
-            {
-                if (playFieldArr[0] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!");
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 0);
             else if (playFieldArr[1] == playFieldArr[4] && playFieldArr[1] == playFieldArr[7] && (playFieldArr[1] == "O" || playFieldArr[1] == "X"))
-            {
-                if (playFieldArr[1] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!");
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 1);
             else if (playFieldArr[2] == playFieldArr[5] && playFieldArr[2] == playFieldArr[8] && (playFieldArr[2] == "O" || playFieldArr[2] == "X"))
-            {
-                if (playFieldArr[2] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!");
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 2);
             // DIAGONAL
             else if (playFieldArr[0] == playFieldArr[4] && playFieldArr[0] == playFieldArr[8] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
-            {
-                if (playFieldArr[0] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!");
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 0);
             else if (playFieldArr[6] == playFieldArr[4] && playFieldArr[6] == playFieldArr[2] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
-            {
-                if (playFieldArr[6] == "O")
-                {
-                    Console.WriteLine("O Wins!");
-                    oWins++;
-                    gameLoop = false;
-                }
-                else
-                {
-                    Console.WriteLine("X Wins!");
-                    xWins++;
-                    gameLoop = false;
-                }
-            }
+                gameLoop = WhoWins(ref oWins, ref xWins, playFieldArr, 6);
             else if (playFieldArr[0] != " " && playFieldArr[1] != " " && playFieldArr[2] != " " && playFieldArr[3] != " " && playFieldArr[4] != " " && playFieldArr[5] != " " && playFieldArr[6] != " " && playFieldArr[7] != " " && playFieldArr[8] != " ")
             {
                 Console.WriteLine("it's a tie...");
@@ -220,6 +117,27 @@ namespace GameCenter_cmd
                 gameLoop = false;
             }
         }
+
+        private static bool WhoWins(ref int oWins, ref int xWins, string[] playFieldArr, int i)
+        {
+            bool gameLoop;
+            {
+                if (playFieldArr[i] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
+            }
+            return gameLoop;
+        }
+
         public static void PrintWinLoss(int oWins, int xWins, int ties)
         {
             //TODO: Make the print look better, use padding?
