@@ -4,6 +4,7 @@ namespace GameCenter_cmd
 {
     internal class TicTacToe
     {
+        //TODO: Clean up UI, will fix after the gamhub UI is fixed and looking good. 
         public static void PrintPlayField()
         {
             string[] arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -35,13 +36,15 @@ namespace GameCenter_cmd
             Console.WriteLine("Type 'start' to start the game, or 'rules' to list the rules, Good luck! ");
             do
             {
+                
                 Console.Write("> ");
-                command = Console.ReadLine();
+                command = Console.ReadLine().ToLower();
                 switch (command)
                 {
-                    case "stop":
-                        //FIXME: Exit game does not work
-                        //FIXME: Wont do it for now until TicTacToe is finnished, but its the loop in program.cs that is the issue
+                    case "exit":
+                        Console.WriteLine("Exiting Tic-Tac-Toe...");
+                        Thread.Sleep(2000);
+                        Console.Clear();
                         break;
                     case "start":
                         Console.Clear();
@@ -54,7 +57,7 @@ namespace GameCenter_cmd
                         TicRules();
                         break;
                     default:
-                        Console.WriteLine($"'{command}' is not a valid comand, type 'help' to get comands or 'stop' to exit game!");
+                        Console.WriteLine($"'{command}' is not a valid command, type 'help' to get commands or 'stop' to exit game!");
                         break;
                 }
 
@@ -118,7 +121,7 @@ namespace GameCenter_cmd
             }
         }
 
-        private static bool WhoWins(ref int oWins, ref int xWins, string[] playFieldArr, int i)
+        public static bool WhoWins(ref int oWins, ref int xWins, string[] playFieldArr, int i)
         {
             bool gameLoop;
             {
