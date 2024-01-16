@@ -90,8 +90,8 @@
         }
         public static void CheckWin(ref int oWins, ref int xWins, ref int ties, string[] playFieldArr, ref bool gameLoop)
         {
-            //TODO: Finnish win con
             //TODO: Refactor
+            int m = 0;
             // horizontally
             if (playFieldArr[0] == playFieldArr[1] && playFieldArr[0] == playFieldArr[2] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
             {
@@ -101,41 +101,136 @@
                     oWins++;
                     gameLoop = false;
                 }
-                if (playFieldArr[0] == "X")
+                else
                 {
+                    Console.WriteLine("X Wins!");
                     xWins++;
                     gameLoop = false;
                 }
             }
             if (playFieldArr[3] == playFieldArr[4] && playFieldArr[3] == playFieldArr[5] && (playFieldArr[3] == "O" || playFieldArr[3] == "X"))
             {
-                Console.WriteLine(playFieldArr[3] + " has won!!");
+                if (playFieldArr[3] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
             }
             if (playFieldArr[6] == playFieldArr[7] && playFieldArr[6] == playFieldArr[8] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
             {
-                Console.WriteLine(playFieldArr[6] + " has won!!");
+                if (playFieldArr[6] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
             }
             //VERTICAL
             if (playFieldArr[0] == playFieldArr[3] && playFieldArr[0] == playFieldArr[6] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
             {
-                Console.WriteLine(playFieldArr[0] + " has won!!");
+                if (playFieldArr[0] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
             }
             if (playFieldArr[1] == playFieldArr[4] && playFieldArr[1] == playFieldArr[7] && (playFieldArr[1] == "O" || playFieldArr[1] == "X"))
             {
-                Console.WriteLine(playFieldArr[1] + " has won!!");
+                if (playFieldArr[1] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
             }
             if (playFieldArr[2] == playFieldArr[5] && playFieldArr[2] == playFieldArr[8] && (playFieldArr[2] == "O" || playFieldArr[2] == "X"))
             {
-                Console.WriteLine(playFieldArr[2] + " has won!!");
+                if (playFieldArr[2] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
             }
             // DIAGONAL
             if (playFieldArr[0] == playFieldArr[4] && playFieldArr[0] == playFieldArr[8] && (playFieldArr[0] == "O" || playFieldArr[0] == "X"))
             {
-                Console.WriteLine(playFieldArr[0] + " has won!!");
+                if (playFieldArr[0] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
             }
             if (playFieldArr[6] == playFieldArr[4] && playFieldArr[6] == playFieldArr[2] && (playFieldArr[6] == "O" || playFieldArr[6] == "X"))
             {
-                Console.WriteLine(playFieldArr[6] + " has won!!");
+                if (playFieldArr[6] == "O")
+                {
+                    Console.WriteLine("O Wins!");
+                    oWins++;
+                    gameLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("X Wins!");
+                    xWins++;
+                    gameLoop = false;
+                }
+            }
+            for (int i = 0; i < 9; i++)
+            {
+                if (playFieldArr[i] == " ")
+                {
+                    break;
+                }
+                else
+                {
+                    m++;
+                }
+                if (m == 9 && gameLoop)
+                {
+                    Console.WriteLine("it's a tie...");
+                    ties++;
+                    gameLoop = false;
+                }
             }
         }
         public static void PrintWinLoss(int oWins, int xWins, int ties)
