@@ -13,6 +13,8 @@ namespace GameCenter_cmd
             Console.WriteLine("'add'    |- Adds custom word to the game");
             Console.WriteLine("'remove  |- Remove word from game'");
             Console.WriteLine("'list'   |- Lists all words that are in the game");
+            Console.WriteLine("'change' |- Change txt file, to play from another file");
+            //TODO?: a method to add a txt file with custom words, from cmd
             Console.WriteLine("'exit'   |- Exits hangman");
         }
         public static void StartHangman()
@@ -31,7 +33,6 @@ namespace GameCenter_cmd
             }
             
             // Console.Clear();
-            //TODO: File for hangman with list of words
             //TODO: Random word picker
             //TODO: Guess loop
             //TODO: User Interface
@@ -48,7 +49,7 @@ namespace GameCenter_cmd
                     case "start":   //NYI
                         Console.WriteLine("Starts game - NYI"); 
                         break;                 
-                    case "help":    //NYI
+                    case "help":
                         Help();
                         break;
                     
