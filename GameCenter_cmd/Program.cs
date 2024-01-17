@@ -14,7 +14,7 @@
         {
             Console.WriteLine("These are all the games that is avalible:");
             Console.WriteLine("Tic-Tac-Toe");
-            Console.WriteLine("Hangman      - NYI");          //NYI
+            Console.WriteLine("Hangman      - In Progress");          //NYI
             Console.WriteLine("Yatzee       - NYI");         //NYI
             Console.WriteLine("Maze game    - NYI");        //NYI
             //TODO: When done, more games to implement
@@ -28,6 +28,7 @@
 
             while (true)
             {
+                HangMan.StartHangman();
                 Console.Write("> ");
                 comand = Console.ReadLine();
                 cmd = comand.Split();
@@ -40,7 +41,7 @@
                     else
                     {
                         if (cmd[1] == "tic-tac-toe") TicTacToe.StartTicTacToe();
-                        else if (cmd[1] == "hangman") Console.WriteLine("Hangman    NYI");
+                        else if (cmd[1] == "hangman") HangMan.StartHangman();
                         else if (cmd[1] == "Yatzee") Console.WriteLine("Yatzee      NYI");
                         else if (cmd[1] == "Maze") Console.WriteLine("Maze game     NYI");
                         else Console.WriteLine($"{comand} is not a valid comand, type 'help' to get all the avalible commands");
