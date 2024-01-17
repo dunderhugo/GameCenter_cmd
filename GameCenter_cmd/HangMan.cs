@@ -17,22 +17,16 @@ namespace GameCenter_cmd
             //TODO?: a method to add a txt file with custom words, from cmd
             Console.WriteLine("'exit'   |- Exits hangman");
         }
+        public static string[] ReadReturnFile(string fileToRead)
+        {
+            string[] lines = File.ReadAllLines(fileToRead);
+            return lines;
+        }
         public static void StartHangman()
         {
+            Console.Clear();
             string defaultFile = "..\\..\\..\\HangmanWords.txt";
-            if (File.Exists(defaultFile))
-            {
-                using (StreamReader sr = new StreamReader(defaultFile))
-                {
-                    while (!sr.EndOfStream)
-                    {
-                        string line = sr.ReadLine();
-                        Console.WriteLine(line);
-                    }
-                }
-            }
-            
-            // Console.Clear();
+            string [] wordsGuess = ReadReturnFile(defaultFile);
             //TODO: Random word picker
             //TODO: Guess loop
             //TODO: User Interface
