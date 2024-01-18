@@ -1,5 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
-
+using System.Linq;
 namespace GameCenter_cmd
 {
     internal class HangMan
@@ -17,16 +17,23 @@ namespace GameCenter_cmd
             //TODO?: a method to add a txt file with custom words, from cmd
             Console.WriteLine("'exit'   |- Exits hangman");
         }
-        public static string[] ReadReturnFile(string fileToRead)
+        public static string RandomWord()
         {
-            string[] lines = File.ReadAllLines(fileToRead);
-            return lines;
+            string defaultFile = "..\\..\\..\\HangmanWords.txt";
+            string[] word = File.ReadAllLines(defaultFile);
+            Random rnd = new Random();
+            int i = rnd.Next(word.Length);
+            return word[i];
         }
         public static void StartHangman()
         {
             Console.Clear();
-            string defaultFile = "..\\..\\..\\HangmanWords.txt";
-            string [] wordsGuess = ReadReturnFile(defaultFile);
+            
+            //string [] wordsArr = ReadReturnFile(defaultFile);
+            //string wordToGuess = RandomWord(wordsArr);
+
+            //Hangman 7 guesses
+            //TODO?: different difficulties?
             //TODO: Random word picker
             //TODO: Guess loop
             //TODO: User Interface
@@ -35,18 +42,17 @@ namespace GameCenter_cmd
             bool hangmanExit = true;
             do
             {
-                Console.Write(">");
+                Console.Write("> ");
                 string command = Console.ReadLine().ToLower();
                 switch (command)
                 {
                     
                     case "start":   //NYI
-                        Console.WriteLine("Starts game - NYI"); 
+                        StartTheGame();
                         break;                 
                     case "help":
                         Help();
                         break;
-                    
                     case "rules":   //NYI
                         Console.WriteLine("Rules - NYI");
                         break;
@@ -74,6 +80,50 @@ namespace GameCenter_cmd
                 }
             }
             while (hangmanExit);
+        }
+        public static void StartTheGame()
+        {
+            //TODO: Better UI
+            Console.WriteLine("Hangman!");
+            string chosenWord = RandomWord();
+            int guesses = 0;
+            int lives = 7;
+            bool gameOver = false;
+            string[] chosenWordArr = new string[chosenWord.Length];
+            string[] filler = new string[chosenWord.Length];
+
+            int i = 0;
+            foreach (char c in chosenWord)
+            {
+                chosenWordArr[i] = c.ToString();
+                filler[i] = "_";
+                i++;
+            }
+            
+            do
+            {
+                Console.Write("Guess a letter: ");
+                string input = Console.ReadLine().ToLower();
+                if (input.Length != 1 || input.All(char.IsDigit))
+                {
+                    Console.WriteLine("Input can only be one letter");
+                }
+                else
+                {
+                    
+
+
+                }
+            }
+            while (!gameOver);
+
+
+
+
+        }
+        public void PrintGame()
+        {
+            Console.Clear();
         }
     }
 }
