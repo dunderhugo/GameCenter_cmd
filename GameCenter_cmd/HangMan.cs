@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Xml;
 using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
+using System.Data;
 namespace GameCenter_cmd
 {
     internal class HangMan
@@ -37,6 +39,7 @@ namespace GameCenter_cmd
                 {
                     
                     case "start":   //In Progress
+                        Console.Clear();
                         StartTheGame();
                         break;                 
                     case "help":
@@ -80,58 +83,80 @@ namespace GameCenter_cmd
         }
         public static void StartTheGame()
         {
+            Console.Write("Loading word");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Clear();
             //TODO: Better UI
-            //TODO: Use lists of guesse words, and do not use arrays. Easier
-            Console.WriteLine("Hangman!");
             string chosenWord = RandomWord();
-            Console.WriteLine(chosenWord);
+            PrintGame();
             int guesses = 0;
             int lives = 7;
-            bool gameOver = false;
-            bool guess = true;
             var guessedLetter = new List<string>();
-
-
+            Console.WriteLine();
             do
-            {
-                Console.Write("Guess a letter: ");
+            {                
+                bool lettersLeft = false;
+				foreach (char c in chosenWord)
+				{
+					var letters = c.ToString();
+					if (guessedLetter.Contains(letters))
+					{
+						Console.Write(letters);
+
+					}
+					else
+					{
+						Console.Write("_");
+                        lettersLeft = true;
+					}
+				}
+                if (!lettersLeft)
+                    break;
+
+				Console.Write("Guess a letter: ");
                 string input = Console.ReadLine().ToLower();
 				if (input.Length != 1 || input.All(char.IsDigit))
                 {
                     Console.WriteLine("Input can only be one letter");
+                    continue;
                 }
-                else
+                if (guessedLetter.Contains(input))
                 {
-                    guessedLetter.Add(input);
-					foreach (char c in chosenWord)
-					{
-						var letters = c.ToString();
-						if (guessedLetter.Contains(letters))
-						{
-                            Console.Write(letters);
-                        }
-						else
-						{
-                            Console.Write("_");
-                        }
-                    }
-                    guesses++;
-					Console.WriteLine($"\nAmount of guesses: {guesses}\n" +
-                        $"Amount of lives: {lives}");
-				}
+                    Console.WriteLine("You have already tried that letter...");
+                }
+                guessedLetter.Add(input);
+                Console.WriteLine();
+                if (!chosenWord.Contains(input))
+                {
+                    Console.WriteLine("Wrong guess");
+                    lives--;
+                }
+                guesses++;
+				Console.WriteLine($"\nAmount of guesses: {guesses}\n" +
+                    $"Amount of lives: {lives}");
             }
-            while (!gameOver);
+            while (lives > 0);
+            if (lives == 0) Console.WriteLine("You loose, the correct word was: " + chosenWord);
+            else Console.WriteLine($"Congratulations! You won the game with {lives} lives left & with {guesses} guesses!");
         }
         public static void PrintGame()
         {
 
             Console.WriteLine(" ---------------------------\n" +
-                              "|          Hangman!         |\n" +
+                              "|          Hangman          |\n" +
                               " ---------------------------");
+            Console.WriteLine(stages[0]);
+
         }
 
         // TODO: If different difficulties, use different array for more/less guesses
-        string[] stages =
+        public static string[] stages =
         {
             @"
                    --------
