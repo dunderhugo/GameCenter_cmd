@@ -23,14 +23,8 @@ namespace GameCenter_cmd
         public static void StartHangman()
         {
             Console.Clear();
-            
-            //string [] wordsArr = ReadReturnFile(defaultFile);
-            //string wordToGuess = RandomWord(wordsArr);
-
             //Hangman 7 guesses (Maybe change if harder/easier difficulties?)
             //TODO?: different difficulties?
-            //TODO: Random word picker
-            //TODO: Guess loop
             //TODO: User Interface
             Console.WriteLine("Welcome to Hangman!");
             Console.WriteLine("Type 'start' to start game, or 'help' to list all commands!");
@@ -95,45 +89,45 @@ namespace GameCenter_cmd
             int lives = 7;
             bool gameOver = false;
             bool guess = true;
-            
-            #region TODO?: Add to RandowWord() method?
-            string[] chosenWordArr = new string[chosenWord.Length];
-            string[] filler = new string[chosenWord.Length];
-            int i = 0;
-            foreach (char c in chosenWord)
-            {
-                chosenWordArr[i] = c.ToString();
-                filler[i] = "_";
-                i++;
+            var guessedLetter = new List<string>();
 
-            }
-            #endregion TODO?
+
             do
             {
-                PrintGame(chosenWordArr, filler);
                 Console.Write("Guess a letter: ");
                 string input = Console.ReadLine().ToLower();
-                if (input.Length != 1 || input.All(char.IsDigit))
+				if (input.Length != 1 || input.All(char.IsDigit))
                 {
                     Console.WriteLine("Input can only be one letter");
                 }
                 else
                 {
-
-
-
-                }
+                    guessedLetter.Add(input);
+					foreach (char c in chosenWord)
+					{
+						var letters = c.ToString();
+						if (guessedLetter.Contains(letters))
+						{
+                            Console.Write(letters);
+                        }
+						else
+						{
+                            Console.Write("_");
+                        }
+                    }
+                    guesses++;
+					Console.WriteLine($"\nAmount of guesses: {guesses}\n" +
+                        $"Amount of lives: {lives}");
+				}
             }
             while (!gameOver);
         }
-        public static void PrintGame(string[] chosenWordArr, string[] filler)
+        public static void PrintGame()
         {
 
             Console.WriteLine(" ---------------------------\n" +
                               "|          Hangman!         |\n" +
                               " ---------------------------");
-            Console.WriteLine(filler);
-            Console.WriteLine(chosenWordArr);
         }
 
         // TODO: If different difficulties, use different array for more/less guesses
