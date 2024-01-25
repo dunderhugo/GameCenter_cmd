@@ -1,5 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Linq;
+using System.Xml;
+using System.Runtime.InteropServices;
 namespace GameCenter_cmd
 {
     internal class HangMan
@@ -17,14 +19,7 @@ namespace GameCenter_cmd
             //TODO?: a method to add a txt file with custom words, from cmd
             Console.WriteLine("'exit'   |- Exits hangman");
         }
-        public static string RandomWord()
-        {
-            string defaultFile = "..\\..\\..\\HangmanWords.txt";
-            string[] word = File.ReadAllLines(defaultFile);
-            Random rnd = new Random();
-            int i = rnd.Next(word.Length);
-            return word[i];
-        }
+
         public static void StartHangman()
         {
             Console.Clear();
@@ -32,7 +27,7 @@ namespace GameCenter_cmd
             //string [] wordsArr = ReadReturnFile(defaultFile);
             //string wordToGuess = RandomWord(wordsArr);
 
-            //Hangman 7 guesses
+            //Hangman 7 guesses (Maybe change if harder/easier difficulties?)
             //TODO?: different difficulties?
             //TODO: Random word picker
             //TODO: Guess loop
@@ -47,7 +42,7 @@ namespace GameCenter_cmd
                 switch (command)
                 {
                     
-                    case "start":   //NYI
+                    case "start":   //In Progress
                         StartTheGame();
                         break;                 
                     case "help":
@@ -81,27 +76,41 @@ namespace GameCenter_cmd
             }
             while (hangmanExit);
         }
+        public static string RandomWord()
+        {
+            string defaultFile = "..\\..\\..\\HangmanWords.txt";
+            string[] word = File.ReadAllLines(defaultFile);
+            Random rnd = new Random();
+            int i = rnd.Next(word.Length);
+            return word[i];
+        }
         public static void StartTheGame()
         {
             //TODO: Better UI
+            //TODO: Use lists of guesse words, and do not use arrays. Easier
             Console.WriteLine("Hangman!");
             string chosenWord = RandomWord();
+            Console.WriteLine(chosenWord);
             int guesses = 0;
             int lives = 7;
             bool gameOver = false;
+            bool guess = true;
+            
+            #region TODO?: Add to RandowWord() method?
             string[] chosenWordArr = new string[chosenWord.Length];
             string[] filler = new string[chosenWord.Length];
-
             int i = 0;
             foreach (char c in chosenWord)
             {
                 chosenWordArr[i] = c.ToString();
                 filler[i] = "_";
                 i++;
+
             }
-            
+            #endregion TODO?
             do
             {
+                PrintGame(chosenWordArr, filler);
                 Console.Write("Guess a letter: ");
                 string input = Console.ReadLine().ToLower();
                 if (input.Length != 1 || input.All(char.IsDigit))
@@ -110,20 +119,35 @@ namespace GameCenter_cmd
                 }
                 else
                 {
-                    
+
 
 
                 }
             }
             while (!gameOver);
-
-
-
-
         }
-        public void PrintGame()
+        public static void PrintGame(string[] chosenWordArr, string[] filler)
         {
-            Console.Clear();
+
+            Console.WriteLine(" ---------------------------\n" +
+                              "|          Hangman!         |\n" +
+                              " ---------------------------");
+            Console.WriteLine(filler);
+            Console.WriteLine(chosenWordArr);
         }
+
+        // TODO: If different difficulties, use different array for more/less guesses
+        string[] stages =
+        {
+            @"
+                   --------
+                   |      |
+                   |      O
+                   |     \|/
+                   |      |
+                   |     / \
+                   -
+            "
+        };
     }
 }

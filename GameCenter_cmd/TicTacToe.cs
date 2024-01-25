@@ -4,7 +4,12 @@ namespace GameCenter_cmd
 {
     internal class TicTacToe
     {
-        //TODO: Clean up UI, will fix after the gamhub UI is fixed and looking good. 
+        //TODO: Clean up UI, will fix after the gamehub UI is fixed and looking good.
+        //TODO: Refactoring, change names on methods etc.
+        //TODO: Seperate UI & Game logic
+        //TODO: Remove magic numbers
+        //TODO: Use list insted of array?
+
         public static void PrintPlayField()
         {
             string[] arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
