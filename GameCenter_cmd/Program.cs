@@ -42,8 +42,8 @@
                     {
                         if (cmd[1] == "tic-tac-toe") TicTacToe.StartTicTacToe();
                         else if (cmd[1] == "hangman") HangMan.StartHangman();
-                        else if (cmd[1] == "Yatzee") Console.WriteLine("Yatzee      NYI");
-                        else if (cmd[1] == "Maze") Console.WriteLine("Maze game     NYI");
+                        else if (cmd[1] == "yatzee") Console.WriteLine("Yatzee      NYI");
+                        else if (cmd[1] == "maze") Console.WriteLine("Maze game     NYI");
                         else Console.WriteLine($"{comand} is not a valid comand, type 'help' to get all the avalible commands");
                     }
                 }

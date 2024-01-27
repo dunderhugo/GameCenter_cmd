@@ -25,7 +25,7 @@ namespace GameCenter_cmd
         public static void StartHangman()
         {
             Console.Clear();
-            //Hangman 7 guesses (Maybe change if harder/easier difficulties?)
+            // Hangman 7 guesses (Maybe change if harder/easier difficulties?)
             //TODO?: different difficulties?
             //TODO: User Interface
             Console.WriteLine("Welcome to Hangman!");
@@ -38,7 +38,7 @@ namespace GameCenter_cmd
                 switch (command)
                 {
                     
-                    case "start":   //In Progress
+                    case "start":
                         Console.Clear();
                         StartTheGame();
                         break;                 
@@ -94,12 +94,12 @@ namespace GameCenter_cmd
             Console.Clear();
             //TODO: Better UI
             string chosenWord = RandomWord();
-            PrintGame();
             int guesses = 0;
             int lives = 7;
-            var guessedLetter = new List<string>();
-            Console.WriteLine();
-            do
+			
+			var guessedLetter = new List<string>();
+			PrintGame(lives, guesses, guessedLetter);
+			do
             {                
                 bool lettersLeft = false;
 				foreach (char c in chosenWord)
@@ -119,7 +119,7 @@ namespace GameCenter_cmd
                 if (!lettersLeft)
                     break;
 
-				Console.Write("Guess a letter: ");
+				Console.Write("\n\nGuess a letter: ");
                 string input = Console.ReadLine().ToLower();
 				if (input.Length != 1 || input.All(char.IsDigit))
                 {
@@ -131,42 +131,123 @@ namespace GameCenter_cmd
                     Console.WriteLine("You have already tried that letter...");
                 }
                 guessedLetter.Add(input);
-                Console.WriteLine();
                 if (!chosenWord.Contains(input))
                 {
                     Console.WriteLine("Wrong guess");
                     lives--;
                 }
                 guesses++;
-				Console.WriteLine($"\nAmount of guesses: {guesses}\n" +
-                    $"Amount of lives: {lives}");
+                PrintGame(lives, guesses, guessedLetter);
             }
             while (lives > 0);
             if (lives == 0) Console.WriteLine("You loose, the correct word was: " + chosenWord);
-            else Console.WriteLine($"Congratulations! You won the game with {lives} lives left & with {guesses} guesses!");
+            else Console.WriteLine($"\nCongratulations! You won the game with {lives} lives left & with {guesses} guesses!\n" + win);
         }
-        public static void PrintGame()
+        public static void PrintGame(int lives, int guesses, List<string> guessedWord)
         {
-
+            Console.Clear();
             Console.WriteLine(" ---------------------------\n" +
                               "|          Hangman          |\n" +
                               " ---------------------------");
-            Console.WriteLine(stages[0]);
-
+            Console.WriteLine(stages[lives]);
+            Console.WriteLine("Guessed letters: ");
+            foreach (string s in guessedWord) Console.Write(s + " ");
+			Console.WriteLine($"\nGuesses: {guesses}\n" +
+					$"Lives: {lives}\n");
         }
+
 
         // TODO: If different difficulties, use different array for more/less guesses
         public static string[] stages =
         {
-            @"
+			@"
                    --------
                    |      |
                    |      O
                    |     \|/
                    |      |
                    |     / \
-                   -
-            "
-        };
-    }
+                  ___
+                 /   \
+            ",
+			@"
+                   --------
+                   |      |
+                   |      O
+                   |     \|/
+                   |      
+                   |     
+                  ___
+                 /   \
+            ",
+			@"
+                   --------
+                   |      |
+                   |      O
+                   |     
+                   |      
+                   |     
+                  ___
+                 /   \
+            ",
+			@"
+                   -------
+                   |      
+                   |     
+                   |     
+                   |     
+                   |     
+                  ___
+                 /   \
+            ",
+			@"
+                   ---
+                   |      
+                   |      
+                   |     
+                   |     
+                   |     
+                  ___
+                 /   \
+            ",
+			@"
+                   
+                   |      
+                   |     
+                   |     
+                   |    
+                   |     
+                  ___
+                 /   \
+            ",
+			@"
+                   
+                    
+                         
+                        
+                         
+                        
+                  ___
+                 /   \
+            ",
+			@"
+                   
+                    
+                         
+                        
+                         
+                        
+                  
+                 
+            ",
+		};
+        public static string win = @" 
+__   __                _    _  _         _ 
+\ \ / /               | |  | |(_)       | |
+ \ V /   ___   _   _  | |  | | _  _ __  | |
+  \ /   / _ \ | | | | | |/\| || || '_ \ | |
+  | |  | (_) || |_| | \  /\  /| || | | ||_|
+  \_/   \___/  \__,_|  \/  \/ |_||_| |_|(_)";
+
+	}
 }
